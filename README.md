@@ -59,8 +59,6 @@ and crack hard problems to the metal with **C / C++**.
 
 <div align="center">
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=Jainil7227&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide_border=true"/>
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Jainil7227&layout=compact&langs_count=8&theme=tokyonight&hide_border=true"/>
 
 </div>
 
@@ -72,17 +70,6 @@ and crack hard problems to the metal with **C / C++**.
 
 ---
 
-## 🕹️ Pac-Man eats my contributions!
-
-<div align="center">
-
-![Pac-Man contribution graph](https://raw.githubusercontent.com/Jainil7227/Jainil7227/output/github-contribution-grid-snake.svg)
-
-</div>
-
-> ⚙️ *This animation auto-updates every day via GitHub Actions*
-
----
 
 ## 🔗 Connect with Me
 
