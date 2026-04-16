@@ -57,10 +57,6 @@ and crack hard problems to the metal with **C / C++**.
 
 ## 📊 GitHub Stats
 
-<div align="center">
-
-
-</div>
 
 <div align="center">
 
@@ -70,6 +66,17 @@ and crack hard problems to the metal with **C / C++**.
 
 ---
 
+## 🕹️ Pac-Man eats my contributions!
+
+<div align="center">
+
+![Pac-Man contribution graph](https://raw.githubusercontent.com/Jainil7227/Jainil7227/output/github-contribution-grid-snake.svg)
+
+</div>
+
+> ⚙️ *This animation auto-updates every day via GitHub Actions*
+
+---
 
 ## 🔗 Connect with Me
 
