@@ -66,7 +66,7 @@ and crack hard problems to the metal with **C / C++**.
 
 ---
 
-## 🕹️ Pac-Man eats my contributions!
+## 🕹️ Snake eats my contributions!
 
 <div align="center">
 
@@ -74,7 +74,6 @@ and crack hard problems to the metal with **C / C++**.
 
 </div>
 
-> ⚙️ *This animation auto-updates every day via GitHub Actions*
 
 ---
 
