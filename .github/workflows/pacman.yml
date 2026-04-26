@@ -24,27 +24,20 @@ jobs:
 
       - name: Fix viewBox — remove invisible top row
         run: |
-          chmod 644 dist/github-contribution-grid-snake-dark.svg
-          python3 << 'PYEOF'
+          cp dist/github-contribution-grid-snake-dark.svg dist/snake-original.svg
+          python3 - << 'PYEOF'
           import re
 
-          path = "dist/github-contribution-grid-snake-dark.svg"
-          with open(path, "r", encoding="utf-8") as f:
+          src = "dist/snake-original.svg"
+          dst = "dist/github-contribution-grid-snake-dark.svg"
+
+          with open(src, "r", encoding="utf-8") as f:
               content = f.read()
 
-          # Fix viewBox: y from -32 to 0, height from 192 to 160
-          content = re.sub(
-              r'viewBox="-16 -32 880 192"',
-              'viewBox="-16 0 880 160"',
-              content
-          )
-          content = re.sub(
-              r'height="192"',
-              'height="160"',
-              content
-          )
+          content = re.sub(r'viewBox="-16 -32 880 192"', 'viewBox="-16 0 880 160"', content)
+          content = re.sub(r'height="192"', 'height="160"', content)
 
-          with open(path, "w", encoding="utf-8") as f:
+          with open(dst, "w", encoding="utf-8") as f:
               f.write(content)
 
           print("Done! Invisible top row removed.")
