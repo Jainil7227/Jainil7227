@@ -22,14 +22,31 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Fix viewBox and write to dist
+      - name: Add clipPath to keep snake inside grid
         run: |
           mkdir -p dist
-          sed 's/viewBox="-16 -32 880 192"/viewBox="-16 0 880 160"/g; s/height="192"/height="160"/g' \
-            output/github-contribution-grid-snake-dark.svg \
-            > dist/github-contribution-grid-snake-dark.svg
-          echo "Done!"
-          head -c 200 dist/github-contribution-grid-snake-dark.svg
+          python3 << 'PYEOF'
+          with open("output/github-contribution-grid-snake-dark.svg", "r") as f:
+              svg = f.read()
+
+          # The grid starts at y=2 and ends at y=110 (7 rows * 16px - 2px)
+          # x starts at -16 (viewBox x) width=880
+          # Insert a clipPath def + wrap snake elements in a g with clip-path
+          clip_def = '<defs><clipPath id="grid-clip"><rect x="-16" y="0" width="880" height="114"/></clipPath></defs>'
+
+          # Insert defs right after <svg ...>
+          svg = svg.replace('<desc>', clip_def + '<desc>', 1)
+
+          # Wrap all snake elements (class "s") in a clipped group
+          # Find where snake rects start - they have class="s s0" etc
+          # Add clip-path to each snake rect
+          svg = svg.replace('class="s ', 'clip-path="url(#grid-clip)" class="s ')
+
+          with open("dist/github-contribution-grid-snake-dark.svg", "w") as f:
+              f.write(svg)
+
+          print("Done! clipPath added.")
+          PYEOF
 
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
