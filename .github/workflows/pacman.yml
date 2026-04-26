@@ -24,24 +24,13 @@ jobs:
 
       - name: Fix viewBox — remove invisible top row
         run: |
-          cp dist/github-contribution-grid-snake-dark.svg dist/snake-original.svg
-          python3 - << 'PYEOF'
-          import re
-
-          src = "dist/snake-original.svg"
-          dst = "dist/github-contribution-grid-snake-dark.svg"
-
-          with open(src, "r", encoding="utf-8") as f:
-              content = f.read()
-
-          content = re.sub(r'viewBox="-16 -32 880 192"', 'viewBox="-16 0 880 160"', content)
-          content = re.sub(r'height="192"', 'height="160"', content)
-
-          with open(dst, "w", encoding="utf-8") as f:
-              f.write(content)
-
-          print("Done! Invisible top row removed.")
-          PYEOF
+          # Read original, fix, write to /tmp, then overwrite using tee
+          cat dist/github-contribution-grid-snake-dark.svg \
+            | sed 's/viewBox="-16 -32 880 192"/viewBox="-16 0 880 160"/g' \
+            | sed 's/height="192"/height="160"/g' \
+            | tee /tmp/snake-fixed.svg > /dev/null
+          cat /tmp/snake-fixed.svg | tee dist/github-contribution-grid-snake-dark.svg > /dev/null
+          echo "Done! viewBox fixed."
 
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
