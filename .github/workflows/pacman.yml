@@ -9,10 +9,11 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
     steps:
       - uses: actions/checkout@v3
 
-      - name: Generate snake animation
+      - name: Generate snake SVG
         uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
@@ -21,30 +22,37 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Crop the extra empty row from SVG
+      - name: Fix viewBox — remove invisible top row
         run: |
           python3 << 'PYEOF'
           import re
 
-          with open("dist/github-contribution-grid-snake-dark.svg", "r") as f:
+          path = "dist/github-contribution-grid-snake-dark.svg"
+          with open(path, "r", encoding="utf-8") as f:
               content = f.read()
 
-          # Find the current viewBox values
-          vb_match = re.search(r'viewBox="([^"]+)"', content)
-          if vb_match:
-              parts = vb_match.group(1).split()
-              if len(parts) == 4:
-                  x, y, w, h = parts
-                  # Each row is 13px tall — remove the last empty row (13px)
-                  new_h = str(int(float(h)) - 13)
-                  # Also update height attribute
-                  content = re.sub(r'viewBox="[^"]+"', f'viewBox="{x} {y} {w} {new_h}"', content)
-                  content = re.sub(r'(?<=<svg[^>]{0,200})height="[^"]+"', f'height="{new_h}"', content)
+          # The viewBox is "-16 -32 880 192"
+          # -32 y means snake travels 32px ABOVE the visible grid
+          # Fix: set y to 0, reduce height by 32 to crop that invisible top row
+          # Also fix the u (progress bar) rects which are at y=144 — move them to y=112
+          
+          # Fix viewBox: change y from -32 to 0, height from 192 to 160
+          content = re.sub(
+              r'viewBox="-16 -32 880 192"',
+              'viewBox="-16 0 880 160"',
+              content
+          )
+          # Fix height attribute on svg tag
+          content = re.sub(
+              r'<svg viewBox="-16 0 880 160" width="880" height="192"',
+              '<svg viewBox="-16 0 880 160" width="880" height="160"',
+              content
+          )
 
-          with open("dist/github-contribution-grid-snake-dark.svg", "w") as f:
+          with open(path, "w", encoding="utf-8") as f:
               f.write(content)
 
-          print(f"Done! New height: {new_h}")
+          print("Done! Cropped 32px from top — invisible row removed.")
           PYEOF
 
       - name: Push to output branch
