@@ -12,7 +12,7 @@
 
 ---
 
-### 🌌 &nbsp; `whoami`
+###  &nbsp; `whoami`
 
 **A passionate developer from Pune who writes code by day & dreams of spacecraft by night.**
 <br/>
@@ -55,22 +55,15 @@ and crack hard problems to the metal with **C / C++**.
 
 ---
 
-## 📊 GitHub Stats
-
-
-<div align="center">
-
-[![GitHub Streak](https://streak-stats.demolab.com?user=Jainil7227&theme=tokyonight&hide_border=true)](https://git.io/streak-stats)
-
-</div>
-
----
-
-## 🕹️ Snake eats my contributions!
+## 🐍 Snake eats my contributions!
 
 <div align="center">
 
-![Pac-Man contribution graph](https://raw.githubusercontent.com/Jainil7227/Jainil7227/output/github-contribution-grid-snake.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Jainil7227/Jainil7227/output/github-contribution-grid-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Jainil7227/Jainil7227/output/github-contribution-grid-snake.svg" />
+  <img alt="Snake animation" src="https://raw.githubusercontent.com/Jainil7227/Jainil7227/output/github-contribution-grid-snake-dark.svg" width="100%" />
+</picture>
 
 </div>
 
